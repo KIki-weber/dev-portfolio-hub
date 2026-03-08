@@ -56,7 +56,6 @@ const Index = () => {
   const { scrollYProgress } = useScroll({ target: heroAboutRef, offset: ["start start", "end end"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["0vh", "80vh"]);
   const t = translations[lang];
-  const t = translations[lang];
 
   useEffect(() => {
     supabase.from("projects").select("*").order("created_at").then(({ data }) => {
