@@ -2,6 +2,7 @@ export type Lang = "en" | "am" | "ti";
 
 export const translations: Record<Lang, Record<string, string>> = {
   en: {
+    nav_home: "Home",
     nav_about: "About",
     nav_skills: "Skills",
     nav_projects: "Projects",
@@ -41,6 +42,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     footer: "Built with passion & clean code",
   },
   am: {
+    nav_home: "መነሻ",
     nav_about: "ስለ እኔ",
     nav_skills: "ክህሎቶች",
     nav_projects: "ፕሮጀክቶች",
@@ -80,6 +82,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     footer: "በፍቅር እና በንጹህ ኮድ የተገነባ",
   },
   ti: {
+    nav_home: "መበገሲ",
     nav_about: "ብዛዕባይ",
     nav_skills: "ክእለታት",
     nav_projects: "ፕሮጀክትታት",
