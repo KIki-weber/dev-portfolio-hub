@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Code2, Database, Globe, Layout, Mail, MapPin, ExternalLink, Phone, Send, MessageCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useScroll, useTransform } from "framer-motion";
 import profilePhoto from "@/assets/profile-photo.png";
 import { translations, type Lang } from "@/lib/translations";
 
