@@ -42,6 +42,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     footer: "Built with passion & clean code",
   },
   am: {
+    nav_home: "መነሻ",
     nav_about: "ስለ እኔ",
     nav_skills: "ክህሎቶች",
     nav_projects: "ፕሮጀክቶች",
