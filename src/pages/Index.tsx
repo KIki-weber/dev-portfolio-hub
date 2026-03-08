@@ -66,6 +66,7 @@ const Index = () => {
   };
 
   const navLinks = [
+    { key: "home", label: t.nav_home || "Home" },
     { key: "about", label: t.nav_about },
     { key: "skills", label: t.nav_skills },
     { key: "projects", label: t.nav_projects },
