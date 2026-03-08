@@ -121,29 +121,31 @@ const Index = () => {
             {/* Floating phone that travels from text to photo */}
             <motion.a
               href="tel:0901302252"
-              initial={{ x: 0, y: 0, opacity: 1 }}
+              initial={{ x: "30vw", y: "0vh", opacity: 0, scale: 0.5 }}
               animate={{
-                x: [0, "40vw", "40vw", 0],
-                y: [0, "-5vh", "5vh", 0],
-                opacity: [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-                rotate: [0, 20, -20, 15, -15, 10, -10, 0, 20, -20, 15, -15, 10, -10, 0],
+                x: ["0vw", "15vw", "30vw", "15vw", "0vw"],
+                y: ["0vh", "-3vh", "0vh", "3vh", "0vh"],
+                opacity: [0, 1, 1, 1, 1, 1, 1, 1, 0],
+                scale: [0.8, 1, 1.1, 1, 0.8],
+                rotate: [0, 10, -10, 8, -8, 5, -5, 0],
               }}
               transition={{
-                x: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                opacity: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                rotate: { duration: 0.4, repeat: Infinity, repeatDelay: 0 },
+                x: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                opacity: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                rotate: { duration: 0.8, repeat: Infinity, repeatDelay: 0 },
               }}
               whileHover={{ scale: 1.2, opacity: 1 }}
-              className="absolute top-0 left-0 z-20 flex items-center gap-3 cursor-pointer"
+              className="absolute top-4 left-0 z-20 flex items-center gap-4 cursor-pointer"
             >
               <motion.div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 25px hsl(45 90% 50% / 0.5)" }}
+                className="w-14 h-14 rounded-xl flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 30px hsl(45 90% 50% / 0.5)" }}
               >
-                <Phone className="w-5 h-5" style={{ color: "hsl(30, 20%, 10%)" }} />
+                <Phone className="w-6 h-6" style={{ color: "hsl(30, 20%, 10%)" }} />
               </motion.div>
-              <span className="font-display text-sm font-bold whitespace-nowrap" style={{ color: "hsl(45, 90%, 55%)" }}>0901302252</span>
+              <span className="font-display text-2xl md:text-3xl font-bold whitespace-nowrap" style={{ color: "hsl(45, 90%, 55%)", textShadow: "0 0 15px hsl(45 90% 50% / 0.3)" }}>0901302252</span>
             </motion.a>
 
             {/* Text */}
