@@ -2,6 +2,7 @@ export type Lang = "en" | "am" | "ti";
 
 export const translations: Record<Lang, Record<string, string>> = {
   en: {
+    nav_home: "Home",
     nav_about: "About",
     nav_skills: "Skills",
     nav_projects: "Projects",
