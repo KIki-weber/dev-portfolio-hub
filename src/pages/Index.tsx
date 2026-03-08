@@ -52,6 +52,10 @@ const Index = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [lang, setLang] = useState<Lang>("en");
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const heroAboutRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroAboutRef, offset: ["start start", "end end"] });
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0vh", "80vh"]);
+  const t = translations[lang];
   const t = translations[lang];
 
   useEffect(() => {
