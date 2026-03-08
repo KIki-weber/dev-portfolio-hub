@@ -117,29 +117,35 @@ const Index = () => {
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-primary/3 blur-3xl" />
         </div>
         <div className="container mx-auto px-6 relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={stagger} className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-            {/* Text */}
-            <div className="flex-1 max-w-2xl">
-              {/* Phone at top with fast nonstop golden animation */}
-              <motion.a
-                variants={fadeUp}
-                custom={0}
-                href="tel:0901302252"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 mb-6"
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="relative flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            {/* Floating phone that travels from text to photo */}
+            <motion.a
+              href="tel:0901302252"
+              initial={{ x: 0, y: 0 }}
+              animate={{
+                x: [0, "40vw", "40vw", 0],
+                y: [0, "-5vh", "5vh", 0],
+                rotate: [0, 20, -20, 15, -15, 10, -10, 0, 20, -20, 15, -15, 10, -10, 0],
+              }}
+              transition={{
+                x: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                rotate: { duration: 0.4, repeat: Infinity, repeatDelay: 0 },
+              }}
+              whileHover={{ scale: 1.2 }}
+              className="absolute top-0 left-0 z-20 flex items-center gap-3 cursor-pointer"
+            >
+              <motion.div
+                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 25px hsl(45 90% 50% / 0.5)" }}
               >
-                <motion.div
-                  animate={{ rotate: [0, 20, -20, 15, -15, 10, -10, 0] }}
-                  transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 0 }}
-                  className="w-11 h-11 rounded-lg flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 20px hsl(45 90% 50% / 0.4)" }}
-                >
-                  <Phone className="w-5 h-5" style={{ color: "hsl(30, 20%, 10%)" }} />
-                </motion.div>
-                <span className="font-display text-sm font-bold" style={{ color: "hsl(45, 90%, 55%)" }}>0901302252</span>
-              </motion.a>
+                <Phone className="w-5 h-5" style={{ color: "hsl(30, 20%, 10%)" }} />
+              </motion.div>
+              <span className="font-display text-sm font-bold whitespace-nowrap" style={{ color: "hsl(45, 90%, 55%)" }}>0901302252</span>
+            </motion.a>
 
+            {/* Text */}
+            <div className="flex-1 max-w-2xl pt-16">
               <motion.p variants={fadeUp} custom={1} className="text-primary font-display text-sm tracking-widest uppercase mb-4">
                 {t.hero_subtitle}
               </motion.p>
