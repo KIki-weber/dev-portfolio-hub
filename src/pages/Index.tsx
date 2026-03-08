@@ -120,16 +120,36 @@ const Index = () => {
           <motion.div initial="hidden" animate="visible" variants={stagger} className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
             {/* Text */}
             <div className="flex-1 max-w-2xl">
-              <motion.p variants={fadeUp} custom={0} className="text-primary font-display text-sm tracking-widest uppercase mb-4">
+              {/* Phone at top with fast nonstop golden animation */}
+              <motion.a
+                variants={fadeUp}
+                custom={0}
+                href="tel:0901302252"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 mb-6"
+              >
+                <motion.div
+                  animate={{ rotate: [0, 20, -20, 15, -15, 10, -10, 0] }}
+                  transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 0 }}
+                  className="w-11 h-11 rounded-lg flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 20px hsl(45 90% 50% / 0.4)" }}
+                >
+                  <Phone className="w-5 h-5" style={{ color: "hsl(30, 20%, 10%)" }} />
+                </motion.div>
+                <span className="font-display text-sm font-bold" style={{ color: "hsl(45, 90%, 55%)" }}>0901302252</span>
+              </motion.a>
+
+              <motion.p variants={fadeUp} custom={1} className="text-primary font-display text-sm tracking-widest uppercase mb-4">
                 {t.hero_subtitle}
               </motion.p>
-              <motion.h1 variants={fadeUp} custom={1} className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
+              <motion.h1 variants={fadeUp} custom={2} className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
                 {t.hero_title_1} <span className="text-gradient">{t.hero_title_2}</span>
               </motion.h1>
-              <motion.p variants={fadeUp} custom={2} className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
+              <motion.p variants={fadeUp} custom={3} className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
                 {t.hero_desc}
               </motion.p>
-              <motion.div variants={fadeUp} custom={3} className="flex flex-wrap gap-4">
+              <motion.div variants={fadeUp} custom={4} className="flex flex-wrap gap-4">
                 <a href="#projects" className="rounded-lg bg-primary px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box">
                   {t.view_projects}
                 </a>
@@ -137,23 +157,6 @@ const Index = () => {
                   {t.get_in_touch}
                 </a>
               </motion.div>
-              <motion.a
-                variants={fadeUp}
-                custom={4}
-                href="tel:0901302252"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 mt-6 text-muted-foreground hover:text-primary transition-colors group"
-              >
-                <motion.div
-                  animate={{ rotate: [0, 15, -15, 10, -10, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
-                  className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors"
-                >
-                  <Phone className="w-5 h-5 text-primary" />
-                </motion.div>
-                <span className="font-display text-sm font-medium">0901302252</span>
-              </motion.a>
             </div>
             {/* Photo */}
             <motion.div
