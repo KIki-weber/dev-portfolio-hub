@@ -82,6 +82,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     footer: "በፍቅር እና በንጹህ ኮድ የተገነባ",
   },
   ti: {
+    nav_home: "መበገሲ",
     nav_about: "ብዛዕባይ",
     nav_skills: "ክእለታት",
     nav_projects: "ፕሮጀክትታት",
