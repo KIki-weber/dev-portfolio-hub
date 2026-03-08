@@ -130,111 +130,125 @@ const Index = () => {
         </div>
       </motion.nav>
 
-      {/* Hero */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-primary/3 blur-3xl" />
-        </div>
-        <div className="container mx-auto px-6 relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={stagger} className="relative flex flex-col md:flex-row items-center gap-12 md:gap-16">
-            {/* Floating phone that travels from text to photo */}
-            <motion.a
-              href="tel:0901302252"
-              initial={{ x: "30vw", y: "0vh", opacity: 0, scale: 0.5 }}
-              animate={{
-                x: ["0vw", "15vw", "30vw", "15vw", "0vw"],
-                y: ["0vh", "-3vh", "0vh", "3vh", "0vh"],
-                opacity: [0, 1, 1, 1, 1, 1, 1, 1, 0],
-                scale: [0.8, 1, 1.1, 1, 0.8],
-                rotate: [0, 10, -10, 8, -8, 5, -5, 0],
-              }}
-              transition={{
-                x: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                opacity: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                rotate: { duration: 0.8, repeat: Infinity, repeatDelay: 0 },
-              }}
-              whileHover={{ scale: 1.2, opacity: 1 }}
-              className="absolute top-4 left-0 z-20 flex items-center gap-4 cursor-pointer"
-            >
-              <motion.div
-                className="w-14 h-14 rounded-xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 30px hsl(45 90% 50% / 0.5)" }}
-              >
-                <Phone className="w-6 h-6" style={{ color: "hsl(30, 20%, 10%)" }} />
-              </motion.div>
-              <span className="font-display text-2xl md:text-3xl font-bold whitespace-nowrap" style={{ color: "hsl(45, 90%, 55%)", textShadow: "0 0 15px hsl(45 90% 50% / 0.3)" }}>0901302252</span>
-            </motion.a>
-
-            {/* Text */}
-            <div className="flex-1 max-w-2xl pt-16">
-              <motion.p variants={fadeUp} custom={1} className="text-primary font-display text-sm tracking-widest uppercase mb-4">
-                {t.hero_subtitle}
-              </motion.p>
-              <motion.h1 variants={fadeUp} custom={2} className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
-                {t.hero_title_1} <span className="text-gradient">{t.hero_title_2}</span>
-              </motion.h1>
-              <motion.p variants={fadeUp} custom={3} className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
-                {t.hero_desc}
-              </motion.p>
-              <motion.div variants={fadeUp} custom={4} className="flex flex-wrap gap-4">
-                <a href="#projects" className="rounded-lg bg-primary px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box">
-                  {t.view_projects}
-                </a>
-                <a href="#contact" className="rounded-lg border border-border px-8 py-3 font-display font-medium text-foreground hover:border-primary/50 transition-colors">
-                  {t.get_in_touch}
-                </a>
-              </motion.div>
+      {/* Hero + About wrapper for scroll-linked photo */}
+      <div ref={heroAboutRef} className="relative">
+        {/* Sticky Photo that follows scroll from hero to about */}
+        <motion.div
+          className="hidden md:block fixed right-[10%] top-1/2 -translate-y-1/2 z-30 pointer-events-none"
+          style={{ y: photoY }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
+        >
+          <div className="relative">
+            <div className="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary/20 glow-box">
+              <img src={profilePhoto} alt="Kiflom Mamo" className="w-full h-full object-cover" />
             </div>
-            {/* Photo */}
-            <motion.div
-              variants={fadeUp}
-              custom={2}
-              className="flex-shrink-0"
-            >
-              <div className="relative">
-                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20 glow-box">
-                  <img src={profilePhoto} alt="Kiflom Mamo" className="w-full h-full object-cover" />
+            <div className="absolute -bottom-2 -right-2 w-20 h-20 rounded-full bg-primary/10 blur-2xl" />
+            <div className="absolute -top-2 -left-2 w-16 h-16 rounded-full bg-primary/10 blur-2xl" />
+          </div>
+        </motion.div>
+
+        {/* Hero */}
+        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+          <div className="absolute inset-0">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
+            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-primary/3 blur-3xl" />
+          </div>
+          <div className="container mx-auto px-6 relative z-10">
+            <motion.div initial="hidden" animate="visible" variants={stagger} className="relative flex flex-col md:flex-row items-center gap-12 md:gap-16">
+              {/* Floating phone */}
+              <motion.a
+                href="tel:0901302252"
+                initial={{ x: "30vw", y: "0vh", opacity: 0, scale: 0.5 }}
+                animate={{
+                  x: ["0vw", "15vw", "30vw", "15vw", "0vw"],
+                  y: ["0vh", "-3vh", "0vh", "3vh", "0vh"],
+                  opacity: [0, 1, 1, 1, 1, 1, 1, 1, 0],
+                  scale: [0.8, 1, 1.1, 1, 0.8],
+                  rotate: [0, 10, -10, 8, -8, 5, -5, 0],
+                }}
+                transition={{
+                  x: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  opacity: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                  scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  rotate: { duration: 0.8, repeat: Infinity, repeatDelay: 0 },
+                }}
+                whileHover={{ scale: 1.2, opacity: 1 }}
+                className="absolute top-4 left-0 z-20 flex items-center gap-4 cursor-pointer"
+              >
+                <motion.div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 30px hsl(45 90% 50% / 0.5)" }}
+                >
+                  <Phone className="w-6 h-6" style={{ color: "hsl(30, 20%, 10%)" }} />
+                </motion.div>
+                <span className="font-display text-2xl md:text-3xl font-bold whitespace-nowrap" style={{ color: "hsl(45, 90%, 55%)", textShadow: "0 0 15px hsl(45 90% 50% / 0.3)" }}>0901302252</span>
+              </motion.a>
+
+              {/* Text */}
+              <div className="flex-1 max-w-2xl pt-16">
+                <motion.p variants={fadeUp} custom={1} className="text-primary font-display text-sm tracking-widest uppercase mb-4">
+                  {t.hero_subtitle}
+                </motion.p>
+                <motion.h1 variants={fadeUp} custom={2} className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
+                  {t.hero_title_1} <span className="text-gradient">{t.hero_title_2}</span>
+                </motion.h1>
+                <motion.p variants={fadeUp} custom={3} className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
+                  {t.hero_desc}
+                </motion.p>
+                <motion.div variants={fadeUp} custom={4} className="flex flex-wrap gap-4">
+                  <a href="#projects" className="rounded-lg bg-primary px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box">
+                    {t.view_projects}
+                  </a>
+                  <a href="#contact" className="rounded-lg border border-border px-8 py-3 font-display font-medium text-foreground hover:border-primary/50 transition-colors">
+                    {t.get_in_touch}
+                  </a>
+                </motion.div>
+              </div>
+              {/* Mobile photo (non-sticky) */}
+              <div className="md:hidden flex-shrink-0">
+                <div className="relative">
+                  <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-primary/20 glow-box">
+                    <img src={profilePhoto} alt="Kiflom Mamo" className="w-full h-full object-cover" />
+                  </div>
                 </div>
-                <div className="absolute -bottom-2 -right-2 w-20 h-20 rounded-full bg-primary/10 blur-2xl" />
-                <div className="absolute -top-2 -left-2 w-16 h-16 rounded-full bg-primary/10 blur-2xl" />
               </div>
             </motion.div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* About */}
-      <section id="about" className="py-28">
-        <div className="container mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="grid md:grid-cols-2 gap-16 items-center">
-            <motion.div variants={fadeUp} custom={0}>
-              <p className="text-primary font-display text-sm tracking-widest uppercase mb-3">{t.about_label}</p>
-              <h2 className="font-display text-4xl font-bold mb-6">
-                {t.about_title_1} <span className="text-gradient">{t.about_title_2}</span>
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">{t.about_p1}</p>
-              <p className="text-muted-foreground leading-relaxed">{t.about_p2}</p>
+        {/* About */}
+        <section id="about" className="py-28">
+          <div className="container mx-auto px-6">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="max-w-2xl">
+              <motion.div variants={fadeUp} custom={0}>
+                <p className="text-primary font-display text-sm tracking-widest uppercase mb-3">{t.about_label}</p>
+                <h2 className="font-display text-4xl font-bold mb-6">
+                  {t.about_title_1} <span className="text-gradient">{t.about_title_2}</span>
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">{t.about_p1}</p>
+                <p className="text-muted-foreground leading-relaxed mb-10">{t.about_p2}</p>
+              </motion.div>
+              <motion.div variants={fadeUp} custom={1} className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: Layout, label: t.frontend, value: "Vue, React, Angular" },
+                  { icon: Database, label: t.backend, value: "Node.js, Python" },
+                  { icon: Globe, label: t.databases, value: "MySQL, PostgreSQL" },
+                  { icon: Code2, label: t.nav_projects, value: t.projects_delivered },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-xl bg-card p-6 border border-border hover:border-primary/30 transition-colors">
+                    <item.icon className="w-8 h-8 text-primary mb-3" />
+                    <p className="font-display font-semibold text-sm mb-1">{item.label}</p>
+                    <p className="text-xs text-muted-foreground">{item.value}</p>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
-            <motion.div variants={fadeUp} custom={1} className="grid grid-cols-2 gap-4">
-              {[
-                { icon: Layout, label: t.frontend, value: "Vue, React, Angular" },
-                { icon: Database, label: t.backend, value: "Node.js, Python" },
-                { icon: Globe, label: t.databases, value: "MySQL, PostgreSQL" },
-                { icon: Code2, label: t.nav_projects, value: t.projects_delivered },
-              ].map((item) => (
-                <div key={item.label} className="rounded-xl bg-card p-6 border border-border hover:border-primary/30 transition-colors">
-                  <item.icon className="w-8 h-8 text-primary mb-3" />
-                  <p className="font-display font-semibold text-sm mb-1">{item.label}</p>
-                  <p className="text-xs text-muted-foreground">{item.value}</p>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
 
       {/* Skills */}
       <section id="skills" className="py-28 bg-card/50">
