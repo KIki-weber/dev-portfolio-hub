@@ -121,18 +121,20 @@ const Index = () => {
             {/* Floating phone that travels from text to photo */}
             <motion.a
               href="tel:0901302252"
-              initial={{ x: 0, y: 0 }}
+              initial={{ x: 0, y: 0, opacity: 1 }}
               animate={{
                 x: [0, "40vw", "40vw", 0],
                 y: [0, "-5vh", "5vh", 0],
+                opacity: [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
                 rotate: [0, 20, -20, 15, -15, 10, -10, 0, 20, -20, 15, -15, 10, -10, 0],
               }}
               transition={{
                 x: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                 y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                opacity: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                 rotate: { duration: 0.4, repeat: Infinity, repeatDelay: 0 },
               }}
-              whileHover={{ scale: 1.2 }}
+              whileHover={{ scale: 1.2, opacity: 1 }}
               className="absolute top-0 left-0 z-20 flex items-center gap-3 cursor-pointer"
             >
               <motion.div
