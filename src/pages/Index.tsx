@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, Database, Globe, Layout, Mail, MapPin, ExternalLink, Phone, Send } from "lucide-react";
+import { Code2, Database, Globe, Layout, Mail, MapPin, ExternalLink, Phone, Send, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import profilePhoto from "@/assets/profile-photo.png";
@@ -82,7 +82,22 @@ const Index = () => {
         className="fixed top-0 left-0 right-0 z-50 glass"
       >
         <div className="container mx-auto flex items-center justify-between py-4 px-6">
-          <span className="font-display text-xl font-bold text-gradient">kiki</span>
+          <div className="flex items-center gap-4">
+            <span className="font-display text-xl font-bold text-gradient">kiki</span>
+            <motion.a
+              href="https://wa.me/251901302252"
+              target="_blank"
+              rel="noopener noreferrer"
+              animate={{ rotate: [0, 12, -12, 8, -8, 0] }}
+              transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 1 }}
+              whileHover={{ scale: 1.15 }}
+              className="flex items-center gap-2 rounded-lg px-3 py-1.5"
+              style={{ background: "linear-gradient(135deg, hsl(142, 70%, 45%), hsl(142, 75%, 38%))", boxShadow: "0 0 15px hsl(142 70% 45% / 0.4)" }}
+            >
+              <MessageCircle className="w-4 h-4" style={{ color: "white" }} />
+              <span className="text-xs font-bold" style={{ color: "white" }}>WhatsApp</span>
+            </motion.a>
+          </div>
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
               <a key={link.key} href={`#${link.key}`} className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
