@@ -137,6 +137,23 @@ const Index = () => {
                   {t.get_in_touch}
                 </a>
               </motion.div>
+              <motion.a
+                variants={fadeUp}
+                custom={4}
+                href="tel:0901302252"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-2 mt-6 text-muted-foreground hover:text-primary transition-colors group"
+              >
+                <motion.div
+                  animate={{ rotate: [0, 15, -15, 10, -10, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
+                  className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors"
+                >
+                  <Phone className="w-5 h-5 text-primary" />
+                </motion.div>
+                <span className="font-display text-sm font-medium">0901302252</span>
+              </motion.a>
             </div>
             {/* Photo */}
             <motion.div
