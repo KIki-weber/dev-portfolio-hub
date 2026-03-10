@@ -89,9 +89,9 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-background font-body">
       <div className="border-b border-border">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <h1 className="font-display text-xl font-bold"><span className="text-gradient">Admin</span> Dashboard</h1>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button onClick={openNew} className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
               <Plus className="w-4 h-4" /> Add Project
             </button>
@@ -102,11 +102,11 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-4 md:px-6 py-8">
         {/* Modal */}
         {editing && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm px-4">
-            <div className="w-full max-w-lg rounded-xl bg-card border border-border p-6 space-y-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
+            <div className="w-full max-w-lg rounded-xl bg-card border border-border p-4 md:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center">
                 <h2 className="font-display text-lg font-semibold">{isNew ? "New Project" : "Edit Project"}</h2>
                 <button onClick={() => setEditing(null)}><X className="w-5 h-5 text-muted-foreground" /></button>
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
         {/* Projects list */}
         <div className="space-y-3">
           {projects.map((p) => (
-            <div key={p.id} className="flex items-center justify-between rounded-xl bg-card border border-border p-4 hover:border-primary/30 transition-colors">
+            <div key={p.id} className="flex flex-col sm:flex-row sm:items-center justify-between rounded-xl bg-card border border-border p-4 hover:border-primary/30 transition-colors gap-4">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg" style={{ background: `linear-gradient(135deg, hsl(${p.color} / 0.3), hsl(${p.color} / 0.1))` }} />
                 <div>
@@ -135,7 +135,7 @@ const AdminDashboard = () => {
                   <p className="text-xs text-muted-foreground">{p.tech.join(", ")}</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 self-end sm:self-auto">
                 <button onClick={() => openEdit(p)} className="p-2 rounded-lg hover:bg-secondary transition-colors"><Edit2 className="w-4 h-4 text-muted-foreground" /></button>
                 <button onClick={() => handleDelete(p.id)} className="p-2 rounded-lg hover:bg-destructive/10 transition-colors"><Trash2 className="w-4 h-4 text-destructive" /></button>
               </div>

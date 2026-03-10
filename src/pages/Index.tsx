@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
-import { Code2, Database, Globe, Layout, Mail, MapPin, ExternalLink, Phone, Send, MessageCircle } from "lucide-react";
+import { Code2, Database, Globe, Layout, Mail, MapPin, ExternalLink, Phone, Send, MessageCircle, Menu } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useScroll, useTransform } from "framer-motion";
 import profilePhoto from "@/assets/profile-photo.png";
 import { translations, type Lang } from "@/lib/translations";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -52,6 +54,7 @@ const Index = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [lang, setLang] = useState<Lang>("en");
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const heroAboutRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroAboutRef, offset: ["start start", "end end"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["0vh", "80vh"]);
@@ -86,7 +89,7 @@ const Index = () => {
         transition={{ duration: 0.5 }}
         className="fixed top-0 left-0 right-0 z-50 glass"
       >
-        <div className="container mx-auto flex items-center justify-between py-4 px-6">
+        <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
           <div className="flex items-center gap-4">
             <span className="font-display text-xl font-bold text-gradient">kiki</span>
             <motion.a
@@ -100,7 +103,7 @@ const Index = () => {
               style={{ background: "linear-gradient(135deg, hsl(142, 70%, 45%), hsl(142, 75%, 38%))", boxShadow: "0 0 15px hsl(142 70% 45% / 0.4)" }}
             >
               <MessageCircle className="w-4 h-4" style={{ color: "white" }} />
-              <span className="text-xs font-bold" style={{ color: "white" }}>WhatsApp</span>
+              <span className="text-xs font-bold hidden sm:inline" style={{ color: "white" }}>WhatsApp</span>
             </motion.a>
           </div>
           <div className="hidden md:flex gap-8">
@@ -123,7 +126,32 @@ const Index = () => {
                 </button>
               ))}
             </div>
-            <a href="#contact" className="rounded-lg bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+            {/* Mobile Menu */}
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <div className="flex flex-col gap-6 mt-6">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.key}
+                      href={`#${link.key}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-lg text-muted-foreground hover:text-primary transition-colors duration-300"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="rounded-lg bg-primary px-6 py-3 text-center font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+                    {t.hire_me}
+                  </a>
+                </div>
+              </SheetContent>
+            </Sheet>
+            <a href="#contact" className="hidden md:inline-flex rounded-lg bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
               {t.hire_me}
             </a>
           </div>
@@ -155,8 +183,8 @@ const Index = () => {
             <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-primary/3 blur-3xl" />
           </div>
-          <div className="container mx-auto px-6 relative z-10">
-            <motion.div initial="hidden" animate="visible" variants={stagger} className="relative flex flex-col md:flex-row items-center gap-12 md:gap-16">
+          <div className="container mx-auto px-4 md:px-6 relative z-10">
+            <motion.div initial="hidden" animate="visible" variants={stagger} className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16">
               {/* Floating phone */}
               <motion.a
                 href="tel:0901302252"
@@ -176,41 +204,41 @@ const Index = () => {
                   rotate: { duration: 0.8, repeat: Infinity, repeatDelay: 0 },
                 }}
                 whileHover={{ scale: 1.2, opacity: 1 }}
-                className="absolute top-4 left-0 z-20 flex items-center gap-4 cursor-pointer"
+                className="absolute top-4 left-4 md:left-0 z-20 flex items-center gap-4 cursor-pointer"
               >
                 <motion.div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center"
+                  className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center"
                   style={{ background: "linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 95%, 55%))", boxShadow: "0 0 30px hsl(45 90% 50% / 0.5)" }}
                 >
-                  <Phone className="w-6 h-6" style={{ color: "hsl(30, 20%, 10%)" }} />
+                  <Phone className="w-5 h-5 md:w-6 md:h-6" style={{ color: "hsl(30, 20%, 10%)" }} />
                 </motion.div>
-                <span className="font-display text-2xl md:text-3xl font-bold whitespace-nowrap" style={{ color: "hsl(45, 90%, 55%)", textShadow: "0 0 15px hsl(45 90% 50% / 0.3)" }}>0901302252</span>
+                <span className="font-display text-lg md:text-2xl font-bold whitespace-nowrap hidden sm:inline" style={{ color: "hsl(45, 90%, 55%)", textShadow: "0 0 15px hsl(45 90% 50% / 0.3)" }}>0901302252</span>
               </motion.a>
 
               {/* Text */}
-              <div className="flex-1 max-w-2xl pt-16">
+              <div className="flex-1 max-w-2xl pt-8 md:pt-16">
                 <motion.p variants={fadeUp} custom={1} className="text-primary font-display text-sm tracking-widest uppercase mb-4">
                   {t.hero_subtitle}
                 </motion.p>
-                <motion.h1 variants={fadeUp} custom={2} className="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
+                <motion.h1 variants={fadeUp} custom={2} className="font-display text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
                   {t.hero_title_1} <span className="text-gradient">{t.hero_title_2}</span>
                 </motion.h1>
-                <motion.p variants={fadeUp} custom={3} className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
+                <motion.p variants={fadeUp} custom={3} className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed">
                   {t.hero_desc}
                 </motion.p>
-                <motion.div variants={fadeUp} custom={4} className="flex flex-wrap gap-4">
-                  <a href="#projects" className="rounded-lg bg-primary px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box">
+                <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row flex-wrap gap-4">
+                  <a href="#projects" className="rounded-lg bg-primary px-6 md:px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box">
                     {t.view_projects}
                   </a>
-                  <a href="#contact" className="rounded-lg border border-border px-8 py-3 font-display font-medium text-foreground hover:border-primary/50 transition-colors">
+                  <a href="#contact" className="rounded-lg border border-border px-6 md:px-8 py-3 font-display font-medium text-foreground hover:border-primary/50 transition-colors">
                     {t.get_in_touch}
                   </a>
                 </motion.div>
               </div>
               {/* Mobile photo (non-sticky) */}
-              <div className="md:hidden flex-shrink-0">
+              <div className="md:hidden flex-shrink-0 order-first md:order-last">
                 <div className="relative">
-                  <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-primary/20 glow-box">
+                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary/20 glow-box">
                     <img src={profilePhoto} alt="Kiflom Mamo" className="w-full h-full object-cover" />
                   </div>
                 </div>
@@ -220,26 +248,26 @@ const Index = () => {
         </section>
 
         {/* About */}
-        <section id="about" className="py-28">
-          <div className="container mx-auto px-6">
+        <section id="about" className="py-20 md:py-28">
+          <div className="container mx-auto px-4 md:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="max-w-2xl">
               <motion.div variants={fadeUp} custom={0}>
                 <p className="text-primary font-display text-sm tracking-widest uppercase mb-3">{t.about_label}</p>
-                <h2 className="font-display text-4xl font-bold mb-6">
+                <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
                   {t.about_title_1} <span className="text-gradient">{t.about_title_2}</span>
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">{t.about_p1}</p>
                 <p className="text-muted-foreground leading-relaxed mb-10">{t.about_p2}</p>
               </motion.div>
-              <motion.div variants={fadeUp} custom={1} className="grid grid-cols-2 gap-4">
+              <motion.div variants={fadeUp} custom={1} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { icon: Layout, label: t.frontend, value: "Vue, React, Angular" },
                   { icon: Database, label: t.backend, value: "Node.js, Python" },
                   { icon: Globe, label: t.databases, value: "MySQL, PostgreSQL" },
                   { icon: Code2, label: t.nav_projects, value: t.projects_delivered },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-xl bg-card p-6 border border-border hover:border-primary/30 transition-colors">
-                    <item.icon className="w-8 h-8 text-primary mb-3" />
+                  <div key={item.label} className="rounded-xl bg-card p-4 md:p-6 border border-border hover:border-primary/30 transition-colors">
+                    <item.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mb-3" />
                     <p className="font-display font-semibold text-sm mb-1">{item.label}</p>
                     <p className="text-xs text-muted-foreground">{item.value}</p>
                   </div>
@@ -251,21 +279,21 @@ const Index = () => {
       </div>
 
       {/* Skills */}
-      <section id="skills" className="py-28 bg-card/50">
-        <div className="container mx-auto px-6">
+      <section id="skills" className="py-20 md:py-28 bg-card/50">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
             <motion.p variants={fadeUp} custom={0} className="text-primary font-display text-sm tracking-widest uppercase mb-3 text-center">{t.skills_label}</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="font-display text-4xl font-bold mb-16 text-center">
+            <motion.h2 variants={fadeUp} custom={1} className="font-display text-3xl md:text-4xl font-bold mb-12 md:mb-16 text-center">
               {t.skills_title_1} <span className="text-gradient">{t.skills_title_2}</span>
             </motion.h2>
-            <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
               {Object.entries(skills).map(([category, items], ci) => (
                 <motion.div key={category} variants={fadeUp} custom={ci + 2}>
-                  <h3 className="font-display text-lg font-semibold mb-6 flex items-center gap-2">
+                  <h3 className="font-display text-lg md:text-xl font-semibold mb-6 flex items-center gap-2">
                     {category === "Frontend" ? <Layout className="w-5 h-5 text-primary" /> : <Database className="w-5 h-5 text-primary" />}
                     {category === "Frontend" ? t.frontend : t.backend}
                   </h3>
-                  <div className="space-y-5">
+                  <div className="space-y-4 md:space-y-5">
                     {items.map((skill) => (
                       <div key={skill.name}>
                         <div className="flex justify-between text-sm mb-2">
@@ -292,14 +320,14 @@ const Index = () => {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="py-28">
-        <div className="container mx-auto px-6">
+      <section id="projects" className="py-20 md:py-28">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
             <motion.p variants={fadeUp} custom={0} className="text-primary font-display text-sm tracking-widest uppercase mb-3 text-center">{t.portfolio_label}</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="font-display text-4xl font-bold mb-16 text-center">
+            <motion.h2 variants={fadeUp} custom={1} className="font-display text-3xl md:text-4xl font-bold mb-12 md:mb-16 text-center">
               {t.portfolio_title_1} <span className="text-gradient">{t.portfolio_title_2}</span>
             </motion.h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
               {projects.map((project, i) => (
                 <motion.div
                   key={project.id}
@@ -309,14 +337,14 @@ const Index = () => {
                   transition={{ duration: 0.3 }}
                   className="group rounded-xl bg-card border border-border hover:border-primary/30 overflow-hidden transition-colors"
                 >
-                  <div className="h-40 relative overflow-hidden" style={{ background: `linear-gradient(135deg, hsl(${project.color} / 0.15), hsl(${project.color} / 0.05))` }}>
+                  <div className="h-32 md:h-40 relative overflow-hidden" style={{ background: `linear-gradient(135deg, hsl(${project.color} / 0.15), hsl(${project.color} / 0.05))` }}>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Code2 className="w-12 h-12 text-muted-foreground/30 group-hover:text-primary/40 transition-colors" />
+                      <Code2 className="w-10 h-10 md:w-12 md:h-12 text-muted-foreground/30 group-hover:text-primary/40 transition-colors" />
                     </div>
                   </div>
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-display font-semibold text-lg">{project.title}</h3>
+                      <h3 className="font-display font-semibold text-base md:text-lg">{project.title}</h3>
                       {project.live_url && (
                         <a href={project.live_url} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -326,7 +354,7 @@ const Index = () => {
                     <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {project.tech.map((techItem) => (
-                        <span key={techItem} className="text-xs px-3 py-1 rounded-full bg-secondary text-secondary-foreground">{techItem}</span>
+                        <span key={techItem} className="text-xs px-2 md:px-3 py-1 rounded-full bg-secondary text-secondary-foreground">{techItem}</span>
                       ))}
                     </div>
                   </div>
@@ -338,21 +366,21 @@ const Index = () => {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-28 bg-card/50">
-        <div className="container mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="max-w-3xl mx-auto">
+      <section id="contact" className="py-20 md:py-28 bg-card/50">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger} className="max-w-4xl mx-auto">
             <motion.p variants={fadeUp} custom={0} className="text-primary font-display text-sm tracking-widest uppercase mb-3 text-center">{t.contact_label}</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="font-display text-4xl font-bold mb-6 text-center">
+            <motion.h2 variants={fadeUp} custom={1} className="font-display text-3xl md:text-4xl font-bold mb-6 text-center">
               {t.contact_title_1} <span className="text-gradient">{t.contact_title_2}</span>
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground mb-10 text-center">
+            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground mb-8 md:mb-10 text-center">
               {t.contact_desc}
             </motion.p>
 
-            <motion.div variants={fadeUp} custom={3} className="grid md:grid-cols-5 gap-8">
+            <motion.div variants={fadeUp} custom={3} className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
               {/* Form */}
-              <form onSubmit={handleFormSubmit} className="md:col-span-3 space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <form onSubmit={handleFormSubmit} className="lg:col-span-3 space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     type="text"
                     value={formData.name}
@@ -387,14 +415,14 @@ const Index = () => {
                 />
                 <button
                   type="submit"
-                  className="flex items-center gap-2 rounded-lg bg-primary px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box"
+                  className="flex items-center gap-2 rounded-lg bg-primary px-6 md:px-8 py-3 font-display font-medium text-primary-foreground hover:opacity-90 transition-opacity glow-box"
                 >
                   <Send className="w-4 h-4" /> {t.form_send}
                 </button>
               </form>
 
               {/* Contact Info */}
-              <div className="md:col-span-2 space-y-6 flex flex-col justify-center">
+              <div className="lg:col-span-2 space-y-4 md:space-y-6 flex flex-col justify-start lg:justify-center">
                 <a href="mailto:habeshakefi@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
                   <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                     <Mail className="w-4 h-4 text-primary" />
@@ -420,8 +448,8 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-border">
-        <div className="container mx-auto px-6 text-center">
+      <footer className="py-6 md:py-8 border-t border-border">
+        <div className="container mx-auto px-4 md:px-6 text-center">
           <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Kiflom Mamo — {t.footer}</p>
         </div>
       </footer>
